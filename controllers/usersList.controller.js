@@ -1,6 +1,8 @@
 const { users } = require("../models/users.model");
 const {info} =require("../utils/loggers");
 let { response } = require("../utils/response");
+const bcrypt =require("bcrypt")
+
 
 const getUserList = async (req,res) => {
     try {
@@ -14,19 +16,21 @@ const getUserList = async (req,res) => {
             code:500,
             message:error.message
         }
-        return response;
+        return res.send(response);
     } 
 }
 
 const createUser = async (req,res) => {
     try {
         info(req.body)
-
-        const {name,lastname,email,passport,city,status,level,salary,skills,photo,cv}=req.body;
-        const newUser =users.create({
+        const {name,lastname,email,password,passport,city,status,level,salary,skills,photo,cv}=req.body;
+        
+        const paswordHash=await  bcrypt.hash(password,10)
+        const newUser =await users.create({
             name,
             lastname,
             email,
+            password:paswordHash,
             passport,
             city,
             status,
@@ -51,19 +55,20 @@ const createUser = async (req,res) => {
 const editUserFromList = async (req,res) =>{
     try {
         //slect only a valuer to edit
-        const {name,lastname,email,passport,city,status,level,salary,skills,photo,cv}=req.body;
+        const {name,lastname,email,password,passport,city,status,level,salary,skills,photo,cv}=req.body;
         const user= await users.findOne({where:{email:email}})
 
             user.name=name
             user.lastname=lastname
             user.email=email
-            user.passport=passport,
-            user.city=city,
-            user.status=status,
-            user.level=level,
-            user.salary=salary,
-            user.skills=skills,
-            user.photo=photo,
+            user.password=password
+            user.passport=passport
+            user.city=city
+            user.status=status
+            user.level=level
+            user.salary=salary
+            user.skills=skills
+            user.photo=photo
             user.cv=cv
 
         info(user);

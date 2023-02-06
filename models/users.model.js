@@ -19,6 +19,10 @@ const users=sequelize.define('users',{
         type:DataTypes.STRING,
         allowNull:false
     },
+    password:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
     passport:{
         type:DataTypes.INTEGER,
         allowNull:false

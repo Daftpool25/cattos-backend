@@ -3,7 +3,8 @@ const ENV ={
     HOST:process.env.HOST || "localHost",
     DB:process.env.DB || 'Cattos',
     USER:process.env.USER || 'root',
-    PASSWORD:process.env.PASSWORD || 'Damian26'
+    PASSWORD:process.env.PASSWORD || 'Damian26',
+    SECRET:process.env.SECRET ||'CATTOSCATTOS'
 }
 
 module.exports={ENV}
