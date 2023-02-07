@@ -7,6 +7,7 @@ const { info } = require("../utils/loggers");
 
 const loginUser= async (req,res) => {
     const {email,password}=req.body;
+    info(req.body)
 
     try {
          const user= await users.findOne({where:{email:email}}) ;
@@ -23,7 +24,7 @@ const loginUser= async (req,res) => {
                 }
 
                 const token= jwt.sign(userForToken,ENV.SECRET);
-                response={error:false,code:200, response:{user:user,token:token}}
+                response={error:false,code:200, message:{user:user,token:token}}
                 return res.send(response)
 
             }else{
@@ -33,11 +34,11 @@ const loginUser= async (req,res) => {
 
          }else{
             response={error:true, code:401, message:"User doesn´t exist"}
-            return res.send(reponse)
+            return res.send(response)
          }
     } catch (error) {
         response={error:true, code:500, message:error.message}
-        return res.send(reponse)
+        return res.send(response)
     }
 
 }
