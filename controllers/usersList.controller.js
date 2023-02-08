@@ -33,7 +33,7 @@ const createUser = async (req,res) => {
             password:paswordHash,
             passport,
             city,
-            status,
+            status:true,
             level,
             salary,
             skills,

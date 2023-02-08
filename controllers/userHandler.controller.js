@@ -59,7 +59,7 @@ const registerUser =async (req,res) =>{
             password:passwordHash,
             passport,
             city,
-            status,
+            status:true,
             level,
             salary,
             skills,
